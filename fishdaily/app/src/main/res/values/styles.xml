@@ -1,0 +1,40 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">false</item>-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!--<item name="android:fitsSystemWindows">true</item>-->
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="StatusBar_AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <!-- ToolBar菜单样式 -->
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!--  敲定颜色-->
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <!--  敲定字体大小-->
+        <!--<item name="android:textSize">@dimen/toolbar_tittle</item> -->
+    </style>
+    <!--ThemeOverlay.AppCompat.Light-->
+    <style name="popup_style" parent="Theme.AppCompat.Light">
+        <!--<item name="android:textColor">@color/text_color_gray</item>-->
+        <!--<item name="android:textSize">@dimen/detail_txt_size</item>-->
+        <item name="android:gravity">center</item>
+    </style>
+</resources>

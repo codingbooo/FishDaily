@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    >
+
+    <TextView
+        android:id="@+id/tv_step_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/welcome_step_1"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tv_step_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/welcome_step_2"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tv_step_3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/welcome_step_3"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tv_step_4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/welcome_step_4"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tv_step_5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/welcome_step_5"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:visibility="gone"
+        android:transitionName="mainAct"
+        />
+</RelativeLayout>
