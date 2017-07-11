@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">咸鱼日常</string>
+    <string name="app_home">主页</string>
+
     <string name="welcome_step_1">2017年度App</string>
     <string name="welcome_step_2">记录与反思</string>
     <string name="welcome_step_3">严重提高工作效率</string>
     <string name="welcome_step_4">上班族必备</string>
     <string name="welcome_step_5">欢迎使用,咸鱼日常</string>
+
+    <string name="search">Search</string>
+    <string name="shortcut_search_short_label">@string/search</string>
+    <string name="shortcut_search_long_label">@string/search</string>
+    <string name="shortcut_search_disabled">Search not available</string>
 </resources>

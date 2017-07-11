@@ -1,6 +1,13 @@
 apply plugin: 'com.android.application'
 // butterknife
 apply plugin: 'com.neenbedankt.android-apt'
+
+// query git for the SHA, Tag and commit count. Use these to automate versioning.
+def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+def gitTag = 'git describe --tags'.execute([], project.rootDir).text.trim()
+def gitCommitCount = 100 +
+        Integer.parseInt('git rev-list --count HEAD'.execute([], project.rootDir).text.trim())
+def gitLog = 'git log'.execute([], project.rootDir).text.trim()
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -14,13 +21,58 @@ android {
     }
     buildTypes {
         release {
+
+        }
+    }
+    println("gitSha :${gitSha}")
+    println("gitTag:${gitTag}")
+    println("gitCommitCount:${gitCommitCount}")
+    println("gitLog:${gitLog}")
+
+
+    signingConfigs {
+        release {
+            try {
+                storeFile file("D:\\work\\project\\FishDaily\\sign\\fishdaily.jks")
+                storePassword "123456"
+                keyAlias "fishdaily"
+                keyPassword "123456"
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+
+        debug {
+            try {
+                storeFile file("D:\\work\\project\\FishDaily\\sign\\fishdaily.jks")
+                storePassword "123456"
+                keyAlias "fishdaily"
+                keyPassword "123456"
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+    }
+
+    buildTypes {
+        release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField("boolean", "LOG_DEBUG", "false")
+            buildConfigField "String", "SERVER_HOST", "http://www.baidu.com/"
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField("boolean", "LOG_DEBUG", "true")
+            buildConfigField "String", "SERVER_HOST", "\"http://192.168.10.206/\""
+
         }
     }
 }
 def ButterKnifeVersion = '8.0.1'
-def RetrofitVersion = '2.0.2'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
