@@ -1,4 +1,4 @@
-package codingbo.fishdaily;
+package codingbo.fishdaily.welcome;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import codingbo.fishdaily.R;
 
 /**
  * Created by bob

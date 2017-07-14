@@ -1,4 +1,4 @@
-package codingbo.fishdaily;
+package codingbo.fishdaily.welcome;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,8 @@ import android.transition.Fade;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.Window;
+
+import codingbo.fishdaily.R;
 
 /**
  * Created by bob

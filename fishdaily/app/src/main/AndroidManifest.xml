@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".welcome.WelcomeActivity"
             android:theme="@style/StatusBar_AppTheme"
             >
             <intent-filter>
@@ -23,13 +23,13 @@
                 android:resource="@xml/shortcuts"/>
         </activity>
 
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".welcome.MainActivity"/>
 
         <activity-alias
             android:name=".home.launcher"
             android:icon="@mipmap/ic_launcher_round"
             android:label="@string/app_home"
-            android:targetActivity=".MainActivity">
+            android:targetActivity=".welcome.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -37,7 +37,7 @@
             </intent-filter>
         </activity-alias>
 
-        <activity android:name=".DemoActivity"/>
+        <activity android:name=".welcome.DemoActivity"/>
     </application>
 
 </manifest>
