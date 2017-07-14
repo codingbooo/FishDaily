@@ -7,6 +7,6 @@ public class Tag {
 
     private String name;
     private Long id;
-    private String descrition;
+    private String description;
 
 }

@@ -1,7 +1,10 @@
 package codingbo.fishdaily.dailies;
 
+import java.util.List;
+
 import codingbo.fishdaily.BasePresenter;
 import codingbo.fishdaily.BaseView;
+import codingbo.fishdaily.entity.Daily;
 
 /**
  * Created by bob
@@ -21,7 +24,7 @@ public interface DailiesContract {
         /**
          * 显示日常列表
          */
-//        void showDailies(List<Daily> dailies);
+        void showDailies(List<Daily> dailies);
 
         /**
          * 显示空界面
@@ -71,7 +74,7 @@ public interface DailiesContract {
         /**
          * 日常详情
          */
-//        void openDailyDetail(Daily daily);
+        void openDailyDetail(Daily daily);
 
 
     }
