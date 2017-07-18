@@ -4,7 +4,7 @@ import java.util.List;
 
 import codingbo.fishdaily.BasePresenter;
 import codingbo.fishdaily.BaseView;
-import codingbo.fishdaily.entity.Daily;
+import codingbo.fishdaily.data.entity.Daily;
 
 /**
  * Created by bob
