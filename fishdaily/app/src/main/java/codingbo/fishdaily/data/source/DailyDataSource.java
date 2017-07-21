@@ -9,7 +9,7 @@ import codingbo.fishdaily.data.entity.Daily;
  * on 17.7.18.
  */
 
-public interface DailyDataRepository {
+public interface DailyDataSource {
 
     interface DailiesCallback {
 
@@ -31,7 +31,7 @@ public interface DailyDataRepository {
 
     void getDaily(String dailyId, GetDailyCallback callback);
 
-    void saveDaily(Daily daily);
+    Long saveDaily(Daily daily);
 
     void deleteDaily(String dailyId);
 
