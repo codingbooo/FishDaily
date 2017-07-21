@@ -1,6 +1,7 @@
 package codingbo.fishdaily.data.source.local;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import java.util.List;
 
@@ -40,17 +41,9 @@ public class DailyLocalDataSource implements DailyDataSource {
     @Override
     public void getDailies(DailiesCallback callback) {
         checkCallback(callback);
-
         List<Daily> dailies = mDailyDao.loadAll();
         for (Daily daily : dailies) {
-            List<Task> taskList = mTaskDao.queryBuilder()
-                    .where(TaskDao.Properties.DailyId.eq(daily.getId()))
-                    .list();
-            for (Task task : taskList) {
-                Tag tag = mTagDao.load(task.getTagId());
-                task.setTag(tag);
-            }
-            daily.setTaskList(taskList);
+            daily.setTaskList(findTasks(String.valueOf(daily.getId())));
         }
         if (/*dailies != null &&*/ dailies.size() > 0) {
             callback.onDailiesLoaded(dailies);
@@ -62,28 +55,48 @@ public class DailyLocalDataSource implements DailyDataSource {
     @Override
     public void getDailies(int startIndex, int length, DailiesCallback callback) {
         checkCallback(callback);
-
-//        List<Daily> dailies = mDailyDao.loadAll();
-
-//        mDailyDao.
-
-//        if (dailies != null && dailies.size() > 0) {
-//            callback.onDailiesLoaded(dailies);
-//        } else {
-//            callback.onDataNotAvailable();
-//        }
+        List<Daily> dailies = mDailyDao.queryBuilder()
+                .limit(length)
+                .offset(startIndex)
+                .list();
+        for (Daily daily : dailies) {
+            daily.setTaskList(findTasks(String.valueOf(daily.getId())));
+        }
+        if (/*dailies != null &&*/ dailies.size() > 0) {
+            callback.onDailiesLoaded(dailies);
+        } else {
+            callback.onDataNotAvailable();
+        }
     }
 
     @Override
     public void getDaily(String dailyId, GetDailyCallback callback) {
         checkCallback(callback);
         Daily daily = mDailyDao.load(Long.parseLong(dailyId));
-        //// TODO: 17.7.19 需要关联task tag数据
-        if (daily != null) {
+        List<Task> taskList = findTasks(dailyId);
+        daily.setTaskList(taskList);
+        if (callback != null) {
             callback.onDailyLoaded(daily);
         } else {
             callback.onDataNotAvailable();
         }
+    }
+
+    @NonNull
+    private List<Task> findTasks(String dailyId) {
+        List<Task> taskList = mTaskDao.queryBuilder()
+                .where(TaskDao.Properties.DailyId.eq(dailyId))
+                .orderAsc(TaskDao.Properties.TagId)
+                .list();
+        for (Task task : taskList) {
+            findTag(task);
+        }
+        return taskList;
+    }
+
+    private void findTag(Task task) {
+        Tag tag = mTagDao.load(task.getTagId());
+        task.setTag(tag);
     }
 
     private void checkCallback(Object callback) {
@@ -94,20 +107,34 @@ public class DailyLocalDataSource implements DailyDataSource {
 
     @Override
     public Long saveDaily(Daily daily) {
-        return mDailyDao.insert(daily);
-        //// TODO: 17.7.19 需要关联task数据
+        long dailyId = mDailyDao.insert(daily);
+        List<Task> list = daily.getTaskList();
+        for (Task task : list) {
+            task.setDailyId(dailyId);
+            mTaskDao.insert(task);
+        }
+        return dailyId;
     }
 
     @Override
     public void deleteDaily(String dailyId) {
+        List<Task> tasks = findTasks(dailyId);
+        mTaskDao.deleteInTx(tasks);
         mDailyDao.deleteByKey(Long.parseLong(dailyId));
-        //// TODO: 17.7.19 需要关联task数据
     }
 
     @Override
     public void updateDaily(Daily daily) {
+        //删除数据库老数据
+        List<Task> tasks = findTasks(String.valueOf(daily.getId()));
+        mTaskDao.deleteInTx(tasks);
+        //重新插入数据
+        List<Task> list = daily.getTaskList();
+        for (Task task : list) {
+            task.setDailyId(daily.getId());
+            mTaskDao.insert(task);
+        }
         mDailyDao.update(daily);
-        //// TODO: 17.7.19 需要关联task数据
     }
 
     @Override
@@ -118,5 +145,6 @@ public class DailyLocalDataSource implements DailyDataSource {
     @Override
     public void deleteAllDailies() {
         mDailyDao.deleteAll();
+        mTaskDao.deleteAll();
     }
 }
