@@ -15,7 +15,7 @@ import codingbo.fishdaily.data.entity.Task;
 import codingbo.fishdaily.data.source.DailyDataSource;
 
 /**
- * 本地存储仓库
+ * 日常数据库实现类
  */
 
 public class DailyLocalDataSource implements DailyDataSource {
@@ -39,7 +39,7 @@ public class DailyLocalDataSource implements DailyDataSource {
     }
 
     @Override
-    public void getDailies(DailiesCallback callback) {
+    public void getDailies(LoadDailiesCallback callback) {
         checkCallback(callback);
         List<Daily> dailies = mDailyDao.loadAll();
         for (Daily daily : dailies) {
@@ -53,7 +53,7 @@ public class DailyLocalDataSource implements DailyDataSource {
     }
 
     @Override
-    public void getDailies(int startIndex, int length, DailiesCallback callback) {
+    public void getDailies(int startIndex, int length, LoadDailiesCallback callback) {
         checkCallback(callback);
         List<Daily> dailies = mDailyDao.queryBuilder()
                 .limit(length)
@@ -106,14 +106,14 @@ public class DailyLocalDataSource implements DailyDataSource {
     }
 
     @Override
-    public Long saveDaily(Daily daily) {
+    public String saveDaily(Daily daily) {
         long dailyId = mDailyDao.insert(daily);
         List<Task> list = daily.getTaskList();
         for (Task task : list) {
             task.setDailyId(dailyId);
             mTaskDao.insert(task);
         }
-        return dailyId;
+        return String.valueOf(dailyId);
     }
 
     @Override

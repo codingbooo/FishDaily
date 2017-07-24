@@ -5,13 +5,12 @@ import java.util.List;
 import codingbo.fishdaily.data.entity.Daily;
 
 /**
- * Created by bob
- * on 17.7.18.
+ * 日常数据入口
  */
 
 public interface DailyDataSource {
 
-    interface DailiesCallback {
+    interface LoadDailiesCallback {
 
         void onDailiesLoaded(List<Daily> dailies);
 
@@ -25,13 +24,13 @@ public interface DailyDataSource {
         void onDataNotAvailable();
     }
 
-    void getDailies(DailiesCallback callback);
+    void getDailies(LoadDailiesCallback callback);
 
-    void getDailies(int startIndex, int length, DailiesCallback callback);
+    void getDailies(int startIndex, int length, LoadDailiesCallback callback);
 
     void getDaily(String dailyId, GetDailyCallback callback);
 
-    Long saveDaily(Daily daily);
+    String saveDaily(Daily daily);
 
     void deleteDaily(String dailyId);
 

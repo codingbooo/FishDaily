@@ -1,5 +1,7 @@
 package codingbo.fishdaily.data.entity;
 
+import android.support.annotation.NonNull;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Transient;
@@ -9,7 +11,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * 完成任务实体类
  */
 @Entity
-public class Task {
+public class Task implements Comparable<Task> {
     @Id(autoincrement = true)
     private Long id;//主键
     private String content;//内容
@@ -28,6 +30,13 @@ public class Task {
         this.content = content;
         this.tagId = tagId;
         this.dailyId = dailyId;
+        this.spendTime = spendTime;
+        this.level = level;
+    }
+
+    public Task(String content, Long tagId, int spendTime, int level) {
+        this.content = content;
+        this.tagId = tagId;
         this.spendTime = spendTime;
         this.level = level;
     }
@@ -90,6 +99,18 @@ public class Task {
 
     public void setTag(Tag tag) {
         this.tag = tag;
+    }
+
+    @Override
+    public int compareTo(@NonNull Task o) {
+        int result = 1;
+        result = o.getContent().equals(this.content)
+                && o.getDailyId() == this.dailyId
+                && o.getId() == this.id
+                && o.getLevel() == this.level
+                && o.getSpendTime() == this.spendTime
+                && o.getTagId() == this.tagId ? 0 : 1;
+        return result;
     }
 }
 

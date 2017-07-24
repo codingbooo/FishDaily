@@ -1,14 +1,18 @@
 package codingbo.fishdaily.data.entity;
 
+import android.support.annotation.NonNull;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+
+import java.util.Comparator;
 
 /**
  * 标签实体类
  */
 @Entity
-public class Tag {
+public class Tag implements Comparable<Tag> {
     @Id(autoincrement = true)
     private Long id;
     private String name;
@@ -59,4 +63,12 @@ public class Tag {
         this.progress = progress;
     }
 
+
+    @Override
+    public int compareTo(@NonNull Tag o) {
+        int result = -1;
+        Tag tag = (Tag) o;
+        result = tag.getName().equals(this.name) && tag.getDescription().equals(this.description) ? 0 : 1;
+        return result;
+    }
 }
